@@ -23,3 +23,19 @@ yarn-debug.log*
 yarn-error.log*
 
 .prettierrc
+
+public/favicon.ico
+public/logo192.png
+public/logo512.png
+public/manifest.json
+public/robots.txt
+src/App.css
+src/App.test.tsx
+src/index.css
+src/reportWebVitals.ts
+src/setupTests.ts
+src/logo.svg
+src/react-app-env.d.ts
+
+.eslintrc
+public/index.html
