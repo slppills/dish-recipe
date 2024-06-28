@@ -21,7 +21,7 @@ export const SelectMenu = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: center;
 	background-color: #e6f8e0;
 	box-shadow: 26px 24px 40px #cef6ce;
 	cursor: pointer;
@@ -33,11 +33,12 @@ export const SelectMenu = styled.div`
 	span {
 		opacity: 0;
 		font-size: 1.7rem;
+		margin-top: 0.7rem;
 	}
 `;
 
-export const MenuImg = styled.div<{ url: string }>`
-	background-image: url(${(props) => props.url});
+export const MenuImg = styled.div<{ $url: string }>`
+	background-image: url(${(props) => props.$url});
 	width: 7rem;
 	height: 7rem;
 	background-position: center;
