@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import * as S from "./Style";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface BackgroundProps {
 	children: ReactNode;
@@ -8,6 +8,7 @@ interface BackgroundProps {
 
 const Background = ({ children }: BackgroundProps) => {
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -15,9 +16,10 @@ const Background = ({ children }: BackgroundProps) => {
 				<S.ContentBackground>
 					<S.ContentWrapper>
 						<S.HomeImg
-							home={
+							$home={
 								location.pathname === "/" ? "hidden" : "visible"
 							}
+							onClick={() => navigate("/")}
 						/>
 						{children}
 					</S.ContentWrapper>

@@ -29,15 +29,19 @@ export const ContentWrapper = styled.div`
 	padding: 4.2rem;
 	gap: 3rem;
 	position: relative;
+	overflow-y: auto;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
-export const HomeImg = styled.div<{ home: string }>`
+export const HomeImg = styled.div<{ $home: string }>`
 	cursor: pointer;
 	background-image: url("/img/home.svg");
-	position: absolute;
-	left: 4.2rem;
+	position: fixed;
+	left: calc(15.12% + 4.2rem);
 	width: 2.3rem;
 	height: 2.3rem;
 	background-size: cover;
-	visibility: ${(props) => props.home};
+	visibility: ${(props) => props.$home};
 `;
