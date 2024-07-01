@@ -25,7 +25,7 @@ const Dish = () => {
 	const GetMenu = async () => {
 		try {
 			const response = await axios.get(
-				`http://openapi.foodsafetykorea.go.kr/api/0d7180f7b79e45eca184/COOKRCP01/json/1/1000/RCP_PAT2=${menutype}`,
+				`https://openapi.foodsafetykorea.go.kr/api/0d7180f7b79e45eca184/COOKRCP01/json/1/1000/RCP_PAT2=${menutype}`,
 			);
 
 			const result2 = response.data.COOKRCP01.row;
