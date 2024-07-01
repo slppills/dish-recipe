@@ -14,15 +14,11 @@ const Background = ({ children }: BackgroundProps) => {
 		<>
 			<S.Wrapper>
 				<S.ContentBackground>
-					<S.ContentWrapper>
-						<S.HomeImg
-							$home={
-								location.pathname === "/" ? "hidden" : "visible"
-							}
-							onClick={() => navigate("/")}
-						/>
-						{children}
-					</S.ContentWrapper>
+					<S.HomeImg
+						$home={location.pathname === "/" ? "hidden" : "visible"}
+						onClick={() => navigate("/")}
+					/>
+					<S.ContentWrapper>{children}</S.ContentWrapper>
 				</S.ContentBackground>
 			</S.Wrapper>
 		</>
