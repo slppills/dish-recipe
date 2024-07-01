@@ -36,6 +36,10 @@ export const MenuTitle = styled.div`
 	span {
 		font-size: 2rem;
 		cursor: pointer;
+	}
+	a {
+		text-decoration: none;
+		color: black;
 		&:hover {
 			color: #01df3a;
 			transition-duration: 0.2s;

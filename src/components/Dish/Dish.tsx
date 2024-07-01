@@ -2,26 +2,27 @@ import React, { useEffect, useState } from "react";
 import Background from "../Background/Background";
 import axios from "axios";
 import * as S from "./Style";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useMenutypeStore from "../../stores/MenutypeStore";
+import { Link } from "react-router-dom";
+import useDishtypeStore from "../../stores/DishtypeStore";
 
 const Dish = () => {
-	const [result, setResult] = useState<any[]>([]);
-	const location = useLocation();
-	const [dishtype, setDishtype] = useState<string>("");
+	const { dishtype, setDishtype } = useDishtypeStore();
+	const { makingType } = useParams();
+	const [dishType, setDishType] = useState<string>("");
 	const { menutype } = useMenutypeStore();
 
 	const DivideType = () => {
-		if (location.pathname.endsWith("stir-fry")) setDishtype("볶기");
-		else if (location.pathname.endsWith("boil")) setDishtype("끓이기");
-		else if (location.pathname.endsWith("bake")) setDishtype("굽기");
-		else if (location.pathname.endsWith("fry")) setDishtype("튀기기");
-		else if (location.pathname.endsWith("steam")) setDishtype("찌기");
-		else if (location.pathname.endsWith("guitar")) setDishtype("기타");
+		if (makingType === "stir-fry") setDishType("볶기");
+		else if (makingType === "boil") setDishType("끓이기");
+		else if (makingType === "bake") setDishType("굽기");
+		else if (makingType === "fry") setDishType("튀기기");
+		else if (makingType === "steam") setDishType("찌기");
+		else if (makingType === "etc") setDishType("기타");
 	};
 
 	const GetMenu = async () => {
-		console.log(menutype);
 		try {
 			const response = await axios.get(
 				`http://openapi.foodsafetykorea.go.kr/api/0d7180f7b79e45eca184/COOKRCP01/json/1/1000/RCP_PAT2=${menutype}`,
@@ -30,9 +31,9 @@ const Dish = () => {
 			const result2 = response.data.COOKRCP01.row;
 			if (result2) {
 				const filteredResults = result2.filter(
-					(res: any) => res.RCP_WAY2 === dishtype,
+					(res: any) => res.RCP_WAY2 === dishType,
 				);
-				setResult(filteredResults);
+				setDishtype(filteredResults);
 			}
 		} catch (error) {
 			console.log(error);
@@ -40,22 +41,27 @@ const Dish = () => {
 	};
 
 	useEffect(() => {
+		setDishtype("");
 		DivideType();
-	}, [location]);
+	}, [makingType]);
 
 	useEffect(() => {
-		GetMenu();
-	}, [dishtype]);
+		if (dishType) {
+			GetMenu();
+		}
+	}, [dishType]);
 
 	const GetData = () => {
 		return (
 			<>
 				<S.MenuContainer>
-					{result.length > 0 ? (
-						result.map((list) => {
+					{dishtype.length > 0 ? (
+						dishtype.map((list: any) => {
 							return (
 								<S.MenuTitle key={list.RCP_SEQ}>
-									<span>{list.RCP_NM}</span>
+									<Link to={`${list.RCP_SEQ}`}>
+										<span>{list.RCP_NM}</span>
+									</Link>
 								</S.MenuTitle>
 							);
 						})
