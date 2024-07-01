@@ -39,7 +39,7 @@ const Menu = () => {
 
 		try {
 			const response = await axios.get(
-				`http://openapi.foodsafetykorea.go.kr/api/0d7180f7b79e45eca184/COOKRCP01/json/1/1000/RCP_PAT2=${typeofmenu}`,
+				`https://openapi.foodsafetykorea.go.kr/api/0d7180f7b79e45eca184/COOKRCP01/json/1/1000/RCP_PAT2=${typeofmenu}`,
 			);
 			const result = response.data.COOKRCP01.row;
 
