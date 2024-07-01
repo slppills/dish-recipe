@@ -9,7 +9,8 @@ import useMenutypeStore from "../../stores/MenutypeStore";
 const Menu = () => {
 	const navigate = useNavigate();
 	const { menuType } = useParams();
-	const { menutype, setMenutype } = useMenutypeStore();
+	const { setMenutype } = useMenutypeStore();
+	const [typeofmenu, setTypeofmenu] = useState<string>();
 	const [countMenu, setCountMenu] = useState({
 		stir_fry: 0,
 		boil: 0,
@@ -20,13 +21,12 @@ const Menu = () => {
 	});
 
 	const DivideMenu = () => {
-		if (menuType === "rice") setMenutype("밥");
-		else if (menuType === "soup") setMenutype("국");
-		else if (menuType === "sidedish") setMenutype("반찬");
-		else if (menuType === "onedish") setMenutype("일품");
-		else if (menuType === "dessert") setMenutype("후식");
-		else if (menuType === "etc") setMenutype("기타");
-		console.log(menutype);
+		if (menuType === "rice") setTypeofmenu("밥");
+		else if (menuType === "soup") setTypeofmenu("국");
+		else if (menuType === "sidedish") setTypeofmenu("반찬");
+		else if (menuType === "onedish") setTypeofmenu("일품");
+		else if (menuType === "dessert") setTypeofmenu("후식");
+		else if (menuType === "etc") setTypeofmenu("기타");
 	};
 
 	const GetMenu = async () => {
@@ -39,7 +39,7 @@ const Menu = () => {
 
 		try {
 			const response = await axios.get(
-				`http://openapi.foodsafetykorea.go.kr/api/0d7180f7b79e45eca184/COOKRCP01/json/1/1000/RCP_PAT2=${menutype}`,
+				`http://openapi.foodsafetykorea.go.kr/api/0d7180f7b79e45eca184/COOKRCP01/json/1/1000/RCP_PAT2=${typeofmenu}`,
 			);
 			const result = response.data.COOKRCP01.row;
 
@@ -73,12 +73,11 @@ const Menu = () => {
 	}, [menuType]);
 
 	useEffect(() => {
-		if (menutype) GetMenu();
-	}, [menutype]);
-
-	useEffect(() => {
-		console.log(countMenu);
-	}, [countMenu]);
+		if (typeofmenu) {
+			setMenutype(typeofmenu);
+			GetMenu();
+		}
+	}, [typeofmenu]);
 
 	return (
 		<>
@@ -133,7 +132,7 @@ const Menu = () => {
 							<span>찌기</span>
 						</S.SelectMenu>
 						<S.SelectMenu
-							onClick={() => navigate(`/${menuType}/guitar`)}
+							onClick={() => navigate(`/${menuType}/etc`)}
 							display={countMenu.etc > 0 ? "flex" : "none"}
 						>
 							<S.MenuImg $url="/img/guitar.svg" />
