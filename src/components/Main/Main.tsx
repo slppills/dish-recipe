@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import Background from "../Background/Background";
 import * as S from "./Style";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const titleElement = document.getElementsByTagName("title")[0];
+		titleElement.innerHTML = `Check the recipe`;
+	}, []);
 
 	return (
 		<>
